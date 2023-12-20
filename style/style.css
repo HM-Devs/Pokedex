@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 * {
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body{
@@ -18,6 +21,7 @@ body{
     background-color: rgb(24, 169, 113);
     border-radius: 8px;
     padding:0.3rem;
+    border: 1px solid black;
 }
 
 #top{
@@ -26,10 +30,44 @@ body{
     background: url(/images/pokeball.png);
     background-repeat: no-repeat;
     background-position: right;
+    border: 1px solid black;
+}
+
+#top-bar{
+    display:flex;
+    justify-content: space-between;
+    color:white;
+    border:none;
+    border: 1px solid black;
+}
+
+#pokesearch{
+    color:white;
+    background:none;
+    border:none;
+    border: 1px solid black;
+}
+
+#pokesearch:focus{
+    outline: none;
+}
+
+#poke-image-placeholder{
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+#pokemon-image{
+    width:200px;
+    height:200px;
+    transform: translateY(4rem);
+    border: 1px solid black;
 }
 
 #data{
     background-color: white;
     height:60%;
     border-radius: 8px;
+    border: 1px solid black;
 }
