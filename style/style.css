@@ -37,15 +37,18 @@ body{
     display:flex;
     justify-content: space-between;
     color:white;
-    border:none;
     border: 1px solid black;
+    padding: 0 1.2rem;
 }
 
 #pokesearch{
     color:white;
     background:none;
     border:none;
+    font-size: 1.2rem;
+    font-weight: bold;
     border: 1px solid black;
+    width:60%;
 }
 
 #pokesearch:focus{
@@ -67,7 +70,24 @@ body{
 
 #data{
     background-color: white;
-    height:60%;
+    height: 60%;
     border-radius: 8px;
+    padding-top: 5.5rem;
     border: 1px solid black;
+}
+
+#types{
+    display:flex;
+    justify-content: center;
+    gap: 1rem;
+    border: 1px solid black;
+}
+
+#types span{
+    background: pink;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
