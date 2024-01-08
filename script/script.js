@@ -1,8 +1,9 @@
 const search = document.querySelector('#pokesearch');
 const number = document.querySelector('#number');
 const pokemonImage = document.querySelector('#pokemon-image');
-const type = document.querySelector('.type');
 const types = document.querySelector('#types');
+const statNumber = document.querySelectorAll('.stat-number');
+
 const typeColors = {
     "rock":     [182, 158,  49],
     "ghost":    [112,  85, 155],
@@ -26,7 +27,7 @@ const typeColors = {
 
 const  fetchApi = async (pkmnName) => {
     //Joining pokemon that have more than one word in their name (nidoran-f)
-    pkmnApiName = pkmnName.split(' ').join('-').toLowerCase();
+    pkmnApiName = pkmnName.split(' ').join('-');
 
 
     const response = await fetch
@@ -66,6 +67,12 @@ search.addEventListener('change', async (event) => {
         newType.style.backgroundColor = `rgb(${color[0]},${color[1]}, ${color[2]})`;
 
         types.appendChild(newType);[]
+    });
+
+    console.log(statNumber);
+
+    pkmnData.stats.forEach((s,i) => {
+         statNumber[i].innerHTML = s.base_stat;
     });
 
 });
