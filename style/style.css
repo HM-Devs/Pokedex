@@ -3,7 +3,6 @@
 * {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    font-weight: bold;
 }
 
 body{
@@ -103,10 +102,22 @@ body{
     width: 15%;
 }
 
+.stat-desc{
+    color: rgb(116,203,72);
+    font-weight: bold;
+    text-align: right;
+    padding-right: 0.6rem;
+    border-right: 1px solid grey;
+}
+
 .stat-bar{
     width:70%;
     display:flex;
     align-items: center;
+}
+
+.stat-number{
+    padding-left: 0.6rem;
 }
 
 .bar-outer{
@@ -119,6 +130,5 @@ body{
 
 .bar-inner{
     background-color: rgba(116,203,72);
-    width:40%;
     border-radius:4px;
 }
