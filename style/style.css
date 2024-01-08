@@ -6,7 +6,7 @@
 }
 
 body{
-    background-color: blanchedalmond;
+    background-color: rgb(14, 14, 14);
     margin: 0;
     display:flex;
     justify-content: center;
@@ -17,9 +17,10 @@ body{
 #pokedex{
     width:22rem;
     height:35rem;
-    background-color: rgb(24, 169, 113);
+    background-color: rgb(116, 203, 72);
     border-radius: 8px;
     padding:0.3rem;
+    transition: background-color 0.5s ease-in-out;
 }
 
 #top{
@@ -44,6 +45,7 @@ body{
     font-size: 1.2rem;
     font-weight: bold;
     width:60%;
+    text-transform: capitalize;
 }
 
 #pokesearch:focus{
@@ -107,6 +109,7 @@ body{
     font-weight: bold;
     text-align: right;
     margin-right: 0.6rem;
+    transition: color 0.5s ease-in-out;
 }
 
 .stat-bar{
@@ -127,10 +130,15 @@ body{
     width:100%;
     height: 0.3rem;
     border-radius:4px;
+    transition: 0.5s ease-in-out;
 }
 
 .bar-inner{
     background-color: rgba(116,203,72);
     border-radius:4px;
-    transition: width 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+}
+
+#stat-title{
+    transition: color 0.5s ease-in-out;
 }

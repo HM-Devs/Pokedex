@@ -6,7 +6,8 @@ const statNumber = document.querySelectorAll('.stat-number');
 const barInner = document.querySelectorAll('.bar-inner');
 const barOuter = document.querySelectorAll('.bar-outer');
 const statDesc = document.querySelectorAll('.stat-desc');
-
+const statTitle = document.querySelector('#stat-title');
+const pokedex = document.querySelector('#pokedex');
 
 const typeColors = {
     "rock":     [182, 158,  49],
@@ -33,7 +34,6 @@ const  fetchApi = async (pkmnName) => {
     //Joining pokemon that have more than one word in their name (nidoran-f)
     pkmnApiName = pkmnName.split(' ').join('-').toLowerCase();
 
-
     const response = await fetch
         ('https://pokeapi.co/api/v2/pokemon/' + pkmnApiName);
 
@@ -41,9 +41,9 @@ const  fetchApi = async (pkmnName) => {
         const pkmnData = await response.json();
         return pkmnData;
     }
+
     return false;
 }
-
 
 search.addEventListener('change', async (event) => {
     const pkmnData = await fetchApi(event.target.value);
@@ -54,10 +54,10 @@ search.addEventListener('change', async (event) => {
         return;
     } 
 
-    //Main colour for UI theme of card
+    //Main colour for UI theme of card and title
     const mainColor = typeColors[pkmnData.types[0].type.name];
-
-    console.log(pkmnData);
+    statTitle.style.color = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
+    pokedex.style.backgroundColor = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
 
     //Set pokemon #id at top of page
     number.innerHTML = '#' + pkmnData.id.toString().padStart(3,'0');
@@ -79,8 +79,6 @@ search.addEventListener('change', async (event) => {
         types.appendChild(newType);[]
     });
 
-    console.log(statNumber);
-
     //Updates stat values and bar sizing
     pkmnData.stats.forEach((s,i) => {
          statNumber[i].innerHTML = s.base_stat.toString().padStart(2,  '0');
@@ -88,7 +86,5 @@ search.addEventListener('change', async (event) => {
          barInner[i].style.backgroundColor = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
          barOuter[i].style.backgroundColor = `rgba(${mainColor[0]},${mainColor[1]}, ${mainColor[2]}, 0.3)`;
          statDesc[i].style.color = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
-         
-         
     });
 });
