@@ -3,6 +3,10 @@ const number = document.querySelector('#number');
 const pokemonImage = document.querySelector('#pokemon-image');
 const types = document.querySelector('#types');
 const statNumber = document.querySelectorAll('.stat-number');
+const barInner = document.querySelectorAll('.bar-inner');
+const barOuter = document.querySelectorAll('.bar-outer');
+const statDesc = document.querySelectorAll('.stat-desc');
+
 
 const typeColors = {
     "rock":     [182, 158,  49],
@@ -27,7 +31,7 @@ const typeColors = {
 
 const  fetchApi = async (pkmnName) => {
     //Joining pokemon that have more than one word in their name (nidoran-f)
-    pkmnApiName = pkmnName.split(' ').join('-');
+    pkmnApiName = pkmnName.split(' ').join('-').toLowerCase();
 
 
     const response = await fetch
@@ -45,7 +49,13 @@ search.addEventListener('change', async (event) => {
     const pkmnData = await fetchApi(event.target.value);
 
     //Validation handling for pokemon that do not exist
-    if(!pkmnData) alert('Pokémon does not exist, please enter a valid Pokémon.');
+    if(!pkmnData){
+        alert('Pokémon does not exist, please enter a valid Pokémon.');
+        return;
+    } 
+
+    //Main colour for UI theme of card
+    const mainColor = typeColors[pkmnData.types[0].type.name];
 
     console.log(pkmnData);
 
@@ -71,8 +81,14 @@ search.addEventListener('change', async (event) => {
 
     console.log(statNumber);
 
+    //Updates stat values and bar sizing
     pkmnData.stats.forEach((s,i) => {
-         statNumber[i].innerHTML = s.base_stat;
+         statNumber[i].innerHTML = s.base_stat.toString().padStart(2,  '0');
+         barInner[i].style.width = `${s.base_stat}%`;
+         barInner[i].style.backgroundColor = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
+         barOuter[i].style.backgroundColor = `rgba(${mainColor[0]},${mainColor[1]}, ${mainColor[2]}, 0.3)`;
+         statDesc[i].style.color = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
+         
+         
     });
-
 });
