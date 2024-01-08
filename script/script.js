@@ -3,8 +3,11 @@ const number = document.querySelector('#number');
 const pokemonImage = document.querySelector('#pokemon-image');
 
 const  fetchApi = async (pkmnName) => {
+    //Joining pokemon that have more than one word in their name (nidoran-f)
+    pkmnApiName = pkmnName.split(' ').join('-').toLowerCase();
+
     const response = await fetch
-        ('https://pokeapi.co/api/v2/pokemon/' + pkmnName.toLowerCase());
+        ('https://pokeapi.co/api/v2/pokemon/' + pkmnApiName);
     
     const pkmnData = await response.json();
     return pkmnData;
