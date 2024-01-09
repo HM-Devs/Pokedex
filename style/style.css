@@ -21,6 +21,7 @@ body{
     border-radius: 8px;
     padding:0.3rem;
     transition: background-color 0.5s ease-in-out;
+    position:relative;
 }
 
 #top{
@@ -142,4 +143,18 @@ body{
 
 #stat-title{
     transition: color 0.5s ease-in-out;
+}
+
+#shiny{
+    color: rgb(0, 0, 0);
+    background-color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position:absolute;
+    top:40px;
+    left:275px;
+    
 }
