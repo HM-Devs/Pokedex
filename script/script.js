@@ -53,7 +53,7 @@ search.addEventListener('change', async (event) => {
 
     //Validation handling for pokemon that do not exist
     if(!pkmnData){
-        alert('Pokémon does not exist, please enter a valid Pokémon.');
+        alert('Hey bud, that Pokémon does not exist - quit foolin around!');
         return;
     } 
 
