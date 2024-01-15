@@ -33,12 +33,9 @@ const typeColors = {
 
 let pkmnData;
 
-const  fetchApi = async (pkmnName) => {
-    //Joining pokemon that have more than one word in their name (nidoran-f)
+const fetchApi = async (pkmnName) => {
     pkmnApiName = pkmnName.split(' ').join('-').toLowerCase();
-
-    const response = await fetch
-        ('https://pokeapi.co/api/v2/pokemon/' + pkmnApiName);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pkmnApiName}`);
 
     if (response.status === 200) {
         pkmnData = await response.json();
@@ -48,62 +45,59 @@ const  fetchApi = async (pkmnName) => {
     return false;
 }
 
-search.addEventListener('change', async (event) => {
-    const pkmnData = await fetchApi(event.target.value);
-
-    //Validation handling for pokemon that do not exist
-    if(!pkmnData){
-        alert('Hey bud, that Pokémon does not exist - quit foolin around!');
-        return;
-    } 
-
-    //Main colour for UI theme of card and title
-    const mainColor = typeColors[pkmnData.types[0].type.name];
+//updates everything for a successful search of a pokemon
+const updateUI = (mainColor) => {
     statTitle.style.color = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
     pokedex.style.backgroundColor = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
     shiny.style.backgroundColor = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
-
-    //Set pokemon #id at top of page
-    number.innerHTML = '#' + pkmnData.id.toString().padStart(3,'0');
-
-    //Sets pokemon image
+    number.innerHTML = '#' + pkmnData.id.toString().padStart(3, '0');
     pokemonImage.src = pkmnData.sprites.other.home.front_default;
 
-    console.log(pkmnData);
-
-    //Update pokemon type colours
     types.innerHTML = '';
-
     pkmnData.types.forEach((t) => {
         let newType = document.createElement('span');
-        let color =typeColors[t.type.name];
+        let color = typeColors[t.type.name];
 
         newType.innerHTML = t.type.name;
         newType.classList.add('type');
         newType.style.backgroundColor = `rgb(${color[0]},${color[1]}, ${color[2]})`;
 
-        types.appendChild(newType);[]
+        types.appendChild(newType);
     });
 
-    //Updates stat values and bar sizing
-    pkmnData.stats.forEach((s,i) => {
-         statNumber[i].innerHTML = s.base_stat.toString().padStart(2,  '0');
-         barInner[i].style.width = `${s.base_stat}%`;
-         barInner[i].style.backgroundColor = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
-         barOuter[i].style.backgroundColor = `rgba(${mainColor[0]},${mainColor[1]}, ${mainColor[2]}, 0.3)`;
-         statDesc[i].style.color = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
+    pkmnData.stats.forEach((s, i) => {
+        statNumber[i].innerHTML = s.base_stat.toString().padStart(2, '0');
+        barInner[i].style.width = `${s.base_stat}%`;
+        barInner[i].style.backgroundColor = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
+        barOuter[i].style.backgroundColor = `rgba(${mainColor[0]},${mainColor[1]}, ${mainColor[2]}, 0.3)`;
+        statDesc[i].style.color = `rgb(${mainColor[0]},${mainColor[1]}, ${mainColor[2]})`;
     });
+}
+
+//on search validation
+search.addEventListener('change', async (event) => {
+    const pkmnData = await fetchApi(event.target.value);
+
+    if (!pkmnData) {
+        alert('Hey bud, that Pokémon does not exist - quit foolin around!');
+        return;
+    }
+
+    const mainColor = typeColors[pkmnData.types[0].type.name];
+    updateUI(mainColor);
+
+    //removes the shiny state so that each time a pokemon is searched the results show the shiny without having to be clicked on twice
+    shiny.classList.remove('active');
 });
 
-    shiny.addEventListener('click', () => {
-        console.log('Shiny button clicked');
-        if(pkmnData){
-            const spriteType = shiny.classList.contains('active') ? 'front_shiny': 'front_default' ;
-            console.log('Sprite type:', spriteType);
-            pokemonImage.src = pkmnData.sprites.other.home[spriteType];
+shiny.addEventListener('click', () => {
+    console.log('Shiny button clicked');
+    if (pkmnData) {
+        // Toggle the shiny button state
+        shiny.classList.toggle('active');
 
-            shiny.classList.toggle('active', !shiny.classList.contains('active'));
-        }
-    });
-
-
+        const spriteType = shiny.classList.contains('active') ? 'front_shiny' : 'front_default';
+        console.log('Sprite type:', spriteType);
+        pokemonImage.src = pkmnData.sprites.other.home[spriteType];
+    }
+});
