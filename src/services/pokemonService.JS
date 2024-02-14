@@ -1,4 +1,3 @@
-// pokemonService.js
 export const typeColors = {
     "rock":     [182, 158,  49],
     "ghost":    [112,  85, 155],
